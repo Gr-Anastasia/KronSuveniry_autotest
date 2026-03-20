@@ -15,11 +15,18 @@ def test_01(page: Page):
 def test_02(page: Page):
     main = MainPage(page, 'https://pumpenergy.ru/')
     main.open()
+
     main.click_to_menu_up_by_title("Каталог сувениров")
-    time.sleep(2)
+    expect(page).to_have_url("https://pumpenergy.ru/catalog")
+    expect(page.get_by_role("heading", name="Каталог сувениров")).to_be_visible()
+
     main.click_to_menu_up_by_title("Обратная связь")
-    time.sleep(2)
+    expect(page).to_have_url("https://pumpenergy.ru/obratnay_svayz")
+    expect(page.get_by_role("heading", name="Обратная связь")).to_be_visible()
+
     main.click_to_menu_up_by_title("Личный кабинет")
-    time.sleep(2)
+    expect(page).to_have_url("https://pumpenergy.ru/registraciya")
+    expect(page.get_by_role("heading", name="Доступ запрещен")).to_be_visible()
+
     main.click_to_menu_by_home()
-    time.sleep(2)
+    expect(page).to_have_url("https://pumpenergy.ru/")
