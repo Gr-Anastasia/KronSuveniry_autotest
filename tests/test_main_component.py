@@ -3,7 +3,7 @@ import time
 from pages.main_page import MainPage
 from playwright.sync_api import expect, Page
 
-def test_01(page: Page):
+def test_01_open_url(page: Page):
     page.goto("https://pumpenergy.ru/")
     expect(page.locator(".company-name__inner")).to_have_text('НК «Крон»')
     expect(page.locator(".company-desc")).to_have_text('Сувениры')
@@ -12,7 +12,7 @@ def test_01(page: Page):
     expect(page.locator("[data-folder-name=' USB-накопители ']")).to_be_visible()
     expect(page.locator("[data-folder-name='Литература']")).to_be_visible()
 
-def test_02(page: Page):
+def test_02_header_menu(page: Page):
     main = MainPage(page, 'https://pumpenergy.ru/')
     main.open()
 
@@ -31,7 +31,7 @@ def test_02(page: Page):
     main.click_to_menu_by_home()
     expect(page).to_have_url("https://pumpenergy.ru/")
 
-def test_03(page: Page):
+def test_03_left_menu(page: Page):
     main = MainPage(page, 'https://pumpenergy.ru/')
     main.open()
 
