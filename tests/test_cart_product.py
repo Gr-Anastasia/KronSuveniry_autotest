@@ -8,5 +8,6 @@ def test_06_go_to_cart_product(page: Page):
     food.open()
 
     food.click_product_in_card_by_title("Тульский пряник")
-    time.sleep(2)
-
+    expect(page).to_have_url("https://pumpenergy.ru/catalog/pryanick-tula")
+    expect(page.get_by_role("heading", name="Тульский пряник")).to_be_visible()
+    expect(page.locator(".price-current > strong")).to_have_text("700")

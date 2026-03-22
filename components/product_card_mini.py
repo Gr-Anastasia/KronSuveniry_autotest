@@ -5,13 +5,13 @@ from controls.button_all import ButtonAll
 from controls.checkbox_comparison import CheckboxComparison
 from controls.title_product import ProductTitle
 
-class ProductCard(BaseComponent):
+class ProductCardSection(BaseComponent):
     """
-    Класс, описывающий страницу карточки товара
+    Класс, описывающий карточку товара на страницах раздела
     """
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)
 
-    def get_button_in_card_product_by_name(self, name):
-        return ButtonAll(self.page, self.page.locator(f'.shop2-button-left("{name}")'))
+    def get_product_by_title(self, title):
+        return ProductTitle(self.page, self.page.get_by_role("link", name=f"{title}").all()[1])
 
