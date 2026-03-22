@@ -1,7 +1,7 @@
 from playwright.sync_api import Page, Locator
 from controls.base_control import BaseControl
 
-class ButtonFilter(BaseControl):
+class ButtonAll(BaseControl):
     """
     Класс, описывающий кнопки 'Показать' и 'Сбросить фильтр' в фильтрах на страницах разделах
     """
