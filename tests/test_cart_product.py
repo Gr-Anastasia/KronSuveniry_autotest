@@ -1,10 +1,12 @@
-from pages.main_page import MainPage
+import time
+
+from pages.section_page import SectionPage
 from playwright.sync_api import expect, Page
 
 def test_06_go_to_cart_product(page: Page):
-    main = MainPage(page, 'https://pumpenergy.ru/')
-    main.open()
+    food = SectionPage(page, "https://pumpenergy.ru/catalog/eatable")
+    food.open()
 
-    main.click_to_left_menu_by_title("Съедобное")
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/eatable")
+    food.click_product_in_card_by_title("Тульский пряник")
+    time.sleep(2)
 

@@ -1,5 +1,6 @@
 from pages.base_page import BasePage
 from components.filter_price import FilterPrice
+from components.product_card import ProductCard
 
 class SectionPage(BasePage):
     """
@@ -16,3 +17,9 @@ class SectionPage(BasePage):
 
     def click_button_by_name(self, name):
         return self.get_filter().get_button_filter_price_by_name(name).wrapper.click()
+
+    def get_product_in_card(self):
+        return ProductCard(self.page, self.page.locator(".product-item shop2-product-item"))
+
+    def click_product_in_card_by_title(self, title):
+        return self.get_product_in_card().get_product_by_title(title).wrapper.click()
