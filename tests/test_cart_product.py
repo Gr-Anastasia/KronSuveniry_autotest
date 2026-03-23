@@ -20,9 +20,12 @@ def test_06_go_to_cart_product(page: Page):
     expect(page.locator("#cart_total")).to_have_text("700")
     expect(page.locator("#cart_total_amount")).to_have_text("1")
 
-def text_07_count_cart_ligo(page: Page):
+def test_07_count_cart_logo(page: Page):
     office = SectionPage(page, "https://pumpenergy.ru/catalog/office")
     office.open()
 
+    office.click_button_buy_in_product_card_by_title("Карта-флешка")
+    office.click_button_buy_in_product_card_by_title("Бумажный пакет")
+    office.click_button_buy_in_product_card_by_title("Блокнот")
 
 

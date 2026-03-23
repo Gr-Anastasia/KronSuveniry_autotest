@@ -19,7 +19,7 @@ class SectionPage(BasePage):
         return self.get_filter().get_button_filter_price_by_name(name).wrapper.click()
 
     def get_product_in_card_by_title(self, title):
-        return ProductCardSection(self.page, self.page.locator(f".product-item shop2-product-item:has-text('{title}')"))
+        return ProductCardSection(self.page, self.page.locator(f".product-item shop2-product-item a:has-text('{title}')"))
 
     def click_product_in_card_by_link(self, title):
         return self.get_product_in_card_by_title(title).get_product_by_link(title).wrapper.click()
