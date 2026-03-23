@@ -15,11 +15,14 @@ class SectionPage(BasePage):
     def fill_filter_price_by_name(self, name, fill_value):
         return self.get_filter().get_input_filter_price_by_name(name).wrapper.fill(fill_value)
 
-    def click_button_by_name(self, name):
+    def click_button_filter_by_name(self, name):
         return self.get_filter().get_button_filter_price_by_name(name).wrapper.click()
 
-    def get_product_in_card(self):
-        return ProductCardSection(self.page, self.page.locator(".product-item shop2-product-item"))
+    def get_product_in_card_by_title(self, title):
+        return ProductCardSection(self.page, self.page.locator(f".product-item shop2-product-item:has-text('{title}')"))
 
-    def click_product_in_card_by_title(self, title):
-        return self.get_product_in_card().get_product_by_title(title).wrapper.click()
+    def click_product_in_card_by_link(self, title):
+        return self.get_product_in_card_by_title(title).get_product_by_link(title).wrapper.click()
+
+    def click_button_buy_in_product_card_by_title(self, title):
+        return self.get_product_in_card_by_title(title).get_button_buy().wrapper.click()

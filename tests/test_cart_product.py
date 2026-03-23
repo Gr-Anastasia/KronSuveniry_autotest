@@ -9,7 +9,7 @@ def test_06_go_to_cart_product(page: Page):
     product = ProductPage(page,"https://pumpenergy.ru/catalog/pryanick-tula")
     food.open()
 
-    food.click_product_in_card_by_title("Тульский пряник")
+    food.click_product_in_card_by_link("Тульский пряник")
     expect(page).to_have_url("https://pumpenergy.ru/catalog/pryanick-tula")
     expect(page.get_by_role("heading", name="Тульский пряник")).to_be_visible()
     expect(page.locator(".price-current > strong")).to_have_text("700")
@@ -20,5 +20,9 @@ def test_06_go_to_cart_product(page: Page):
     expect(page.locator("#cart_total")).to_have_text("700")
     expect(page.locator("#cart_total_amount")).to_have_text("1")
 
+def text_07_count_cart_ligo(page: Page):
+    office = SectionPage(page, "https://pumpenergy.ru/catalog/office")
+    office.open()
 
-    time.sleep(2)
+
+

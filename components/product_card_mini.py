@@ -12,6 +12,10 @@ class ProductCardSection(BaseComponent):
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)
 
-    def get_product_by_title(self, title):
+    def get_product_by_link(self, title):
         return ProductTitle(self.page, self.page.get_by_role("link", name=f"{title}").all()[1])
+
+    def get_button_buy(self):
+        return ButtonAll(self.page,  self.page.locator(f'.shop2-button-left:has-text("Купить")'))
+
 
