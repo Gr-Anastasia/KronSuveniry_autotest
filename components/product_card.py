@@ -12,6 +12,6 @@ class ProductCard(BaseComponent):
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)
 
-    def get_button_in_card_product_by_name(self, name):
-        return ButtonAll(self.page, self.page.locator(f'.shop2-button-left("{name}")'))
+    def get_button_in_product_by_name(self, name):
+        return ButtonAll(self.page, self.page.locator(f'.shop2-button-left:has-text("{name}")'))
 
