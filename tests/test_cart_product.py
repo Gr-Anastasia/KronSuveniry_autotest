@@ -25,7 +25,21 @@ def test_07_count_cart_logo(page: Page):
     office.open()
 
     office.click_button_buy_in_product_card_by_title("Карта-флешка")
+    expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+    time.sleep(2)
+    expect(page.locator("#cart_total")).to_have_text("350")
+    expect(page.locator("#cart_total_amount")).to_have_text("1")
+
     office.click_button_buy_in_product_card_by_title("Бумажный пакет")
+    expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+    time.sleep(2)
+    expect(page.locator("#cart_total")).to_have_text("750")
+    expect(page.locator("#cart_total_amount")).to_have_text("2")
+
     office.click_button_buy_in_product_card_by_title("Блокнот")
+    expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+    time.sleep(2)
+    expect(page.locator("#cart_total")).to_have_text("1 050")
+    expect(page.locator("#cart_total_amount")).to_have_text("3")
 
 

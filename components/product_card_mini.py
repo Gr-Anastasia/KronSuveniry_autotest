@@ -16,6 +16,6 @@ class ProductCardSection(BaseComponent):
         return ProductTitle(self.page, self.page.get_by_role("link", name=f"{title}").all()[1])
 
     def get_button_buy(self):
-        return ButtonAll(self.page, self.page.locator('.shop2-button-left:has-text("Купить")'))
+        return ButtonAll(self.page, self.wrapper.locator('.shop2-button-left:has-text("Купить")'))
 
 
