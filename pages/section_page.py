@@ -30,3 +30,12 @@ class SectionPage(BasePage):
 
     def click_button_buy_in_product_card_by_title(self, title):
         return self.get_product_in_card_by_title(title).get_button_buy().wrapper.click()
+
+    def click_button_add_count_input_by_title(self, title):
+        return self.get_product_in_card_by_title(title).get_add_count_input().wrapper.click()
+
+    def click_button_remove_count_input_by_title(self, title):
+        return self.get_product_in_card_by_title(title).get_remove_count_input().wrapper.click()
+
+    def fill_input_count_by_title(self, title, fill_value):
+        return self.get_product_in_card_by_title(title).get_input_count().wrapper.fill(f"{fill_value}")
