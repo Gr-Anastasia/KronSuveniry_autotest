@@ -4,6 +4,8 @@ from controls.input_all import InputAll
 from controls.button_all import ButtonAll
 from controls.checkbox_comparison import CheckboxComparison
 from controls.title_product import ProductTitle
+from controls.add_count_input import AddProductCount
+from controls.remove_count_input import RemoveProductCount
 
 class ProductCardSection(BaseComponent):
     """
@@ -17,5 +19,16 @@ class ProductCardSection(BaseComponent):
 
     def get_button_buy(self):
         return ButtonAll(self.page, self.wrapper.locator('.shop2-button-left:has-text("Купить")'))
+
+    def get_add_count_input(self):
+        return AddProductCount(self.page, self.wrapper.locator(".product-amount-button-add"))
+
+    def get_remove_count_input(self):
+        return RemoveProductCount(self.page, self.wrapper.locator(".product-amount-button-remove"))
+
+    def get_input_count(self):
+        return InputAll(self.page, self.wrapper.locator('input[name="amount"]'))
+
+
 
 
