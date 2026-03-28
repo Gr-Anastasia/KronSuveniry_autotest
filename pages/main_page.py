@@ -18,6 +18,9 @@ class MainPage(BasePage):
     def click_to_menu_by_home(self):
         return self.get_header_menu().get_by_home_menu().click()
 
+    def click_to_cart(self):
+        return self.get_header_menu().get_card_button().wrapper.click()
+
     def get_left_menu(self):
         return LeftMenu(self.page, self.page.locator(".left-menu"))
 
