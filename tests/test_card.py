@@ -1,3 +1,4 @@
+import re
 import time
 
 from pages.main_page import MainPage
@@ -12,14 +13,20 @@ def test_09_card(page: Page):
 
     product.fill_input_count_by_title("5")
     expect(page.locator('input[name="amount"]')).to_have_value("5")
-    time.sleep(2)
+
 
     product.click_button_product_by_name("Купить")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-    time.sleep(2)
+    expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
+    expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+    expect(page.locator('input[name="amounts[925418108]"]')).to_have_value("5")
+    expect(page.locator('.shop2-cart-price').all()[0]).to_have_text("700")
+    expect(page.locator('.shop2-cart-price').all()[1]).to_have_text("3 500")
+
+
 
 
 
