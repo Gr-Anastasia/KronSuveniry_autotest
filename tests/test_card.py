@@ -54,7 +54,6 @@ def test_11_card_count(page: Page):
 
     office.click_button_buy_in_product_card_by_title("Карта-флешка")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
-
     office.click_button_buy_in_product_card_by_title("Бумажный пакет")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
@@ -63,14 +62,25 @@ def test_11_card_count(page: Page):
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
     expect(page.get_by_role("link", name="Бумажный пакет")).to_be_visible()
-    # expect(page.locator('[id*="cart-row"]')).to_have_count(2)
+
+    # x = page.locator('.shop2-cart-price').first.inner_text()
+    # price = int(x)
+    # y = page.locator('//input[contains(@name, "amounts")]').input_value()
+    # count = int(y)
+    # cost = price*count
+    # expect(page.locator(".total-price last-line")).to_have_text(f"{cost} Крон")
 
     card.fill_count_product_by_title_in_list_card("Карта-флешка", "22")
-    card.click_button_product_by_name("Пересчитать")
+    # page.mouse.click(10,10)
+    # card.click_button_product_by_name("Пересчитать") СПРОСИТЬ У АРТУРА
+    time.sleep(2)
+
+    card.click_delete_product_by_title_in_list_card("Бумажный пакет")
     time.sleep(2)
 
     card.click_button_product_by_name("Очистить корзину")
-    time.sleep(2)
+    expect(page.get_by_role("paragraph", name="Корзина пуста")).to_be_visible()
+
 
 
 
