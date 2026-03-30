@@ -42,4 +42,3 @@ def test_07_count_cart_logo(page: Page):
     expect(page.locator("#cart_total")).to_have_text("1 050")
     expect(page.locator("#cart_total_amount")).to_have_text("3")
 
-

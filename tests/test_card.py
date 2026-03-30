@@ -47,6 +47,9 @@ def test_10_from_card_to_product(page: Page):
     expect(page.get_by_role("heading", name="Тульский пряник")).to_be_visible()
 
 def test_11_card_count(page: Page):
+    """
+        НЕ РАБОТАЕТ! ОШИБКА КНОПКИ ПЕРЕСЧИТАТЬ, ПРАВИТЬ!
+    """
     office = SectionPage(page, "https://pumpenergy.ru/catalog/office")
     main = MainPage(page, "https://pumpenergy.ru/catalog/office")
     card = CardPage(page, "https://pumpenergy.ru/catalog/cart")
@@ -58,6 +61,7 @@ def test_11_card_count(page: Page):
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
+    time.sleep(2)
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
@@ -71,8 +75,12 @@ def test_11_card_count(page: Page):
     # expect(page.locator(".total-price last-line")).to_have_text(f"{cost} Крон")
 
     card.fill_count_product_by_title_in_list_card("Карта-флешка", "22")
+    time.sleep(2)
     # page.mouse.click(10,10)
-    # card.click_button_product_by_name("Пересчитать") СПРОСИТЬ У АРТУРА
+    # card.click_button_product_by_name("Пересчитать")
+    # СПРОСИТЬ У АРТУРА
+
+
     time.sleep(2)
 
     card.click_delete_product_by_title_in_list_card("Бумажный пакет")

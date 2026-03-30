@@ -22,3 +22,6 @@ def test_08_count_product_card_mini(page: Page):
 
 
 
+
+
+
