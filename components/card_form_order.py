@@ -14,4 +14,3 @@ class FormOrderWithoutRegistration(BaseComponent):
         return ButtonAll(self.page, self.wrapper.locator(f".shop2-button-left:has-text('{name}')"))
 
 
-
