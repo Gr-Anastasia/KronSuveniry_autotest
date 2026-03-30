@@ -4,6 +4,7 @@ from controls.base_control import BaseControl
 class ProductTitle(BaseControl):
     """
     Класс, описывающий ссылку-название на товар в карточке товара на страницах разделов
+    и на странице корзины
     """
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)

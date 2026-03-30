@@ -1,3 +1,4 @@
+from components.card_form_order import FormOrderWithoutRegistration
 from pages.base_page import BasePage
 from components.card_form import FormCard
 from components.card_list import ListCard
@@ -17,13 +18,19 @@ class CardPage(BasePage):
         return self.get_form_card().get_button_by_name(name).wrapper.click()
 
     def get_lict_card_by_title(self, title):
-        return ListCard(self.page, self.page.locator(f'//a[text()="[{title}]"]/ancestor::tr[contains(@id, "cart-row")]'))
+        return ListCard(self.page, self.page.locator(f'//a[text()="{title}"]/ancestor::tr[contains(@id, "cart-row")]'))
 
     def click_title_product_in_list_card(self, title):
         return self.get_lict_card_by_title(title).get_title_link(title).wrapper.click()
 
-    def fill_count_product_by_title_in_list_card(self, title):
-        return self.get_lict_card_by_title(title).get_input_count().wrapper.fill()
+    def fill_count_product_by_title_in_list_card(self, title, fill_value):
+        return self.get_lict_card_by_title(title).get_input_count().wrapper.fill(fill_value)
 
     def click_delete_product_by_title_in_list_card(self, title):
         return self.get_lict_card_by_title(title).get_delete_icon().wrapper.click()
+
+    def get_form_order_no_register(self):
+        return FormOrderWithoutRegistration(self.page, self.page.locator(".cart-registration-right"))
+
+    def click_button_buy_no_register(self):
+        return self.get_form_order_no_register().get_button_by_name("Купить без регистрации").wrapper.click()

@@ -16,7 +16,7 @@ class ListCard(BaseComponent):
         return ProductTitle(self.page, self.page.get_by_role("link", name=f"{title}"))
 
     def get_input_count(self):
-        return InputAll(self.page, self.wrapper.locator('input[name*="amounts"]'))
+        return InputAll(self.page, self.wrapper.locator('//input[contains(@name, "amounts")]'))
 
     def get_delete_icon(self):
         return DeleteLinkCard(self.page, self.wrapper.get_by_title("Удалить"))

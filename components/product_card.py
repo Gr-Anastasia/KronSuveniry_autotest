@@ -2,7 +2,6 @@ from playwright.sync_api import Page, Locator
 from components.base_component import BaseComponent
 from controls.input_all import InputAll
 from controls.button_all import ButtonAll
-from controls.checkbox_comparison import CheckboxComparison
 from controls.add_count_input import AddProductCount
 from controls.remove_count_input import RemoveProductCount
 

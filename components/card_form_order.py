@@ -3,9 +3,9 @@ from components.base_component import BaseComponent
 from controls.button_all import ButtonAll
 
 
-class FormCard(BaseComponent):
+class FormOrderWithoutRegistration(BaseComponent):
     """
-    Класс, описывающий форму страницы корзины? Кнопки купить и пересчитать
+    Класс, описывающий форму 'Оформить заказ' купить без регистрации
     """
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)
