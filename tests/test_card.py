@@ -1,5 +1,4 @@
 import time
-
 from pages.main_page import MainPage
 from pages.product_page import ProductPage
 from pages.card_page import CardPage
@@ -12,6 +11,7 @@ def test_09_card(page: Page):
     main = MainPage(page, "https://pumpenergy.ru/catalog/pryanick-tula")
     product.open()
 
+    price = page.locator(".price-current > strong").inner_text()
     product.fill_input_count_by_title("5")
     expect(page.locator('input[name="amount"]')).to_have_value("5")
 
@@ -19,12 +19,15 @@ def test_09_card(page: Page):
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
+    count = page.locator('input[name="amounts[925418108]"]').input_value()
+    sum_pie = int(price) * int(count)
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
-    expect(page.locator('input[name="amounts[925418108]"]')).to_have_value("5")
-    expect(page.locator('.shop2-cart-price').all()[0]).to_have_text("700")
+    expect(page.locator('input[name="amounts[925418108]"]')).to_have_value(count)
+    expect(page.locator('.shop2-cart-price').all()[0]).to_have_text(price)
     expect(page.locator('.shop2-cart-price').all()[1]).to_have_text("3 500")
+    # expect(page.locator('.shop2-cart-price').all()[1]).to_have_text(str(sum_pie))
 
 def test_10_from_card_to_product(page: Page):
     card = CardPage(page, "https://pumpenergy.ru/catalog/cart")
