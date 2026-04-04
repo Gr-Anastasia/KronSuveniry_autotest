@@ -134,9 +134,14 @@ def test_14_making_an_order_courier(page: Page):
     order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
     order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
 
-
     order.click_button_making_order()
-    expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
+
+    expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
+    expect(page.get_by_label("ФИО")).to_be_visible()
+    expect(page.get_by_label("Компания")).to_be_visible()
+    expect(page.get_by_label("Телефон")).to_be_visible()
+    expect(page.get_by_label("E-mail")).to_be_visible()
+    expect(page.get_by_label("Дополнительная информация")).to_be_visible()
 
 
 def test_15_making_an_order_post(page: Page):
@@ -163,13 +168,17 @@ def test_15_making_an_order_post(page: Page):
 
     time.sleep(2)
 
-    expect(page.locator(".delivery-type delivery-type-current label:has(span:has-text('Адрес доставки:'))")).to_be_visible()
-    expect(page.locator(".delivery-type delivery-type-current label:has(span:has-text('Почтовый индекс:'))")).to_be_visible()
-    expect(page.locator(".delivery-type delivery-type-current label:has(span:has-text('Телефон:'))")).to_be_visible()
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Адрес доставки:'))")).to_be_visible()
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Почтовый индекс:'))")).to_be_visible()
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Телефон:'))")).to_be_visible()
 
-    # ЗАПОЛНИТЬ ТЕСТОВЫМИ ДАННЫМИ
+
+    order.fill_input_form_add_data_by_post("Адрес доставки:", "г. Москва, ул. Максима Рыльского, д.1.")
+    order.fill_input_form_add_data_by_post("Почтовый индекс:", "000555")
+    order.fill_input_form_add_data_by_post("Телефон:", "880055353555")
 
     order.click_button_making_order()
+
     expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
     expect(page.get_by_label("ФИО")).to_be_visible()
     expect(page.get_by_label("Компания")).to_be_visible()
