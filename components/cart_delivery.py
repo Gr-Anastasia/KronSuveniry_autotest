@@ -14,8 +14,10 @@ class CartDelivery(BaseComponent):
     def get_checkbox_delivery(self, delivery):
         return CheckboxDelivery(self.page, self.wrapper.locator(f"label:has-text('{delivery}') input.delivery-radio"))
 
-    def get_button_making_order(self):
+    def get_button_making_order_in_delivery(self):
         return ButtonAll(self.page, self.wrapper.get_by_role("link", name="Оформить заказ »"))
+
+
 
 
 

@@ -7,16 +7,16 @@ def test_08_count_product_card_mini(page: Page):
     office.open()
 
     office.click_button_add_count_input_by_title("Карта-флешка")
-    (expect(page.locator('.product-item shop2-product-item:has(a:has-text("Карта-флешка"))')
-            .locator('input[name="amount"]'))).to_have_value("2")
+    expect(page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))')
+           .locator('input[name="amount"]')).to_have_value("2")
 
     office.click_button_remove_count_input_by_title("Карта-флешка")
-    (expect(page.locator('.product-item shop2-product-item:has(a:has-text("Карта-флешка"))')
-            .locator('input[name="amount"]'))).to_have_value("1")
+    expect(page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))')
+           .locator('input[name="amount"]')).to_have_value("1")
 
     office.fill_input_count_by_title("Карта-флешка", "22")
-    (expect(page.locator('.product-item shop2-product-item:has(a:has-text("Карта-флешка"))')
-                         .locator('input[name="amount"]'))).to_have_value("22")
+    expect(page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))')
+           .locator('input[name="amount"]')).to_have_value("22")
 
 
 

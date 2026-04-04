@@ -16,11 +16,14 @@ class OrderPage(BasePage):
     def click_radiobutton_product_by_delivery(self, delivery):
         return self.get_cart_delivery().get_checkbox_delivery(delivery).wrapper.click()
 
-    def click_button_making_order(self):
-        return self.get_cart_delivery().get_button_making_order().wrapper.click()
+    def click_button_making_order_in_delivery(self):
+        return self.get_cart_delivery().get_button_making_order_in_delivery().wrapper.click()
 
     def get_form_add_data(self):
         return AddData(self.page, self.page.locator("#order-form"))
+
+    def click_button_making_order_in_making_order(self):
+        return self.get_form_add_data().get_button_making_order().wrapper.click()
 
     def fill_input_form_add_data(self, data, fill_value):
         return self.get_form_add_data().get_input_by_data(data).wrapper.fill(fill_value)

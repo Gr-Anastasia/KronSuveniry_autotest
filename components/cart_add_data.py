@@ -19,9 +19,5 @@ class AddData(BaseComponent):
 
 
     def get_button_making_order(self):
-        return ButtonAll(self.page, self.wrapper.get_by_role("link", name="Оформить заказ »"))
-
-
-
-
+        return ButtonAll(self.page, self.wrapper.locator(".shop-cart-button > input"))
 

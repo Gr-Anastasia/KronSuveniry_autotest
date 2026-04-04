@@ -137,9 +137,9 @@ def test_14_making_an_order_courier(page: Page):
     order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
     order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
 
-    expect(page.locator("#delivery-0").all()[1]).to_have_value("г. Москва, ул. Максима Рыльского, д.1.")
-    expect(page.locator("#delivery-1").all()[1]).to_have_value("880055353555")
-    expect(page.locator("#delivery-2").all()[1]).to_have_value("11.03.2026, 15:00")
+    expect(page.locator("#delivery-0").all()[0]).to_have_value("г. Москва, ул. Максима Рыльского, д.1.")
+    expect(page.locator("#delivery-1").all()[0]).to_have_value("880055353555")
+    expect(page.locator("#delivery-2").all()[0]).to_have_value("11.03.2026, 15:00")
 
     order.click_button_making_order_in_delivery()
 
@@ -162,9 +162,14 @@ def test_15_making_an_order_post(page: Page):
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
+
+    price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
+    count = page.locator('input[name="amounts[925418108]"]').input_value()
+    sum_card = int(price) * int(count)
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+    expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     card.click_button_buy_no_register()
     expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
@@ -179,13 +184,15 @@ def test_15_making_an_order_post(page: Page):
     expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Почтовый индекс:'))")).to_be_visible()
     expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Телефон:'))")).to_be_visible()
 
-
     order.fill_input_form_add_data_by_post("Адрес доставки:", "г. Москва, ул. Максима Рыльского, д.1.")
     order.fill_input_form_add_data_by_post("Почтовый индекс:", "000555")
     order.fill_input_form_add_data_by_post("Телефон:", "880055353555")
 
-    order.click_button_making_order_in_delivery()
+    expect(page.locator("#delivery-0").all()[1]).to_have_value("г. Москва, ул. Максима Рыльского, д.1.")
+    expect(page.locator("#delivery-1").all()[1]).to_have_value("000555")
+    expect(page.locator("#delivery-2").all()[1]).to_have_value("880055353555")
 
+    order.click_button_making_order_in_delivery()
     expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
     expect(page.get_by_label("ФИО")).to_be_visible()
     expect(page.get_by_label("Компания")).to_be_visible()
@@ -204,9 +211,13 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
+    price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
+    count = page.locator('input[name="amounts[925418108]"]').input_value()
+    sum_card = int(price) * int(count)
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+    expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     card.click_button_buy_no_register()
     expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
@@ -224,8 +235,10 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
     order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
     order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
 
-    order.click_button_making_order_in_making_order()
+    expect(page.locator("#delivery-1").all()[0]).to_have_value("880055353555")
+    expect(page.locator("#delivery-2").all()[0]).to_have_value("11.03.2026, 15:00")
 
+    order.click_button_making_order_in_making_order()
     expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
 
 
@@ -240,9 +253,14 @@ def test_17_making_an_order_post_not_all_data(page: Page):
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
     main.click_to_cart()
+
+    price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
+    count = page.locator('input[name="amounts[925418108]"]').input_value()
+    sum_card = int(price) * int(count)
     expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
     expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
     expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+    expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     card.click_button_buy_no_register()
     expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
@@ -257,12 +275,13 @@ def test_17_making_an_order_post_not_all_data(page: Page):
     expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Почтовый индекс:'))")).to_be_visible()
     expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Телефон:'))")).to_be_visible()
 
-
     order.fill_input_form_add_data_by_post("Адрес доставки:", "г. Москва, ул. Максима Рыльского, д.1.")
     order.fill_input_form_add_data_by_post("Телефон:", "880055353555")
 
-    order.click_button_making_order_in_making_order()
+    expect(page.locator("#delivery-0").all()[1]).to_have_value("г. Москва, ул. Максима Рыльского, д.1.")
+    expect(page.locator("#delivery-2").all()[1]).to_have_value("880055353555")
 
+    order.click_button_making_order_in_making_order()
     expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Почтовый индекс")
 
 
