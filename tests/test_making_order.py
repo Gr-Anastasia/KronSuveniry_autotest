@@ -1,11 +1,8 @@
-import re
 import time
-
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 from pages.card_page import CardPage
 from playwright.sync_api import expect, Page
-
 from pages.product_page import ProductPage
 from pages.section_page import SectionPage
 

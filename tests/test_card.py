@@ -1,11 +1,9 @@
-import re
 import time
 
 from pages.main_page import MainPage
 from pages.product_page import ProductPage
 from pages.card_page import CardPage
 from playwright.sync_api import expect, Page
-
 from pages.section_page import SectionPage
 
 
@@ -47,9 +45,6 @@ def test_10_from_card_to_product(page: Page):
     expect(page.get_by_role("heading", name="Тульский пряник")).to_be_visible()
 
 def test_11_card_count(page: Page):
-    """
-        НЕ РАБОТАЕТ! ОШИБКА КНОПКИ ПЕРЕСЧИТАТЬ, ПРАВИТЬ!
-    """
     office = SectionPage(page, "https://pumpenergy.ru/catalog/office")
     main = MainPage(page, "https://pumpenergy.ru/catalog/office")
     card = CardPage(page, "https://pumpenergy.ru/catalog/cart")
@@ -57,6 +52,7 @@ def test_11_card_count(page: Page):
 
     office.click_button_buy_in_product_card_by_title("Карта-флешка")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+    time.sleep(1)
     office.click_button_buy_in_product_card_by_title("Бумажный пакет")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
@@ -75,19 +71,15 @@ def test_11_card_count(page: Page):
     # expect(page.locator(".total-price last-line")).to_have_text(f"{cost} Крон")
 
     card.fill_count_product_by_title_in_list_card("Карта-флешка", "22")
-    time.sleep(2)
-    # page.mouse.click(10,10)
-    # card.click_button_product_by_name("Пересчитать")
-    # СПРОСИТЬ У АРТУРА
+    page.keyboard.press("Enter")
 
-
-    time.sleep(2)
+    card.click_button_product_by_name("Пересчитать")
 
     card.click_delete_product_by_title_in_list_card("Бумажный пакет")
-    time.sleep(2)
 
+    time.sleep(1)
     card.click_button_product_by_name("Очистить корзину")
-    expect(page.get_by_role("paragraph", name="Корзина пуста")).to_be_visible()
+    expect(page.locator("p", has_text="Корзина пуста")).to_be_visible()
 
 
 
