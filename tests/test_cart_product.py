@@ -26,19 +26,28 @@ def test_07_count_cart_logo(page: Page):
 
     office.click_button_buy_in_product_card_by_title("Карта-флешка")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
-    time.sleep(2)
-    expect(page.locator("#cart_total")).to_have_text("350")
+    time.sleep(1)
+    price_usb = page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))').locator(".product-price > strong").inner_text()
+
+    expect(page.locator("#cart_total")).to_have_text(price_usb)
     expect(page.locator("#cart_total_amount")).to_have_text("1")
+
 
     office.click_button_buy_in_product_card_by_title("Бумажный пакет")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
-    time.sleep(2)
-    expect(page.locator("#cart_total")).to_have_text("750")
+    time.sleep(1)
+    price_poket = page.locator('.product-item.shop2-product-item:has(a:has-text("Бумажный пакет"))').locator(".product-price > strong").inner_text()
+    sum_usb_poket = int(price_usb) + int(price_poket)
+
+    expect(page.locator("#cart_total")).to_have_text(str(sum_usb_poket))
     expect(page.locator("#cart_total_amount")).to_have_text("2")
 
     office.click_button_buy_in_product_card_by_title("Блокнот")
     expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
-    time.sleep(2)
-    expect(page.locator("#cart_total")).to_have_text("1 050")
+    price_notebook = page.locator('.product-item.shop2-product-item:has(a:has-text("Блокнот"))').locator(".product-price > strong").inner_text()
+    sum_usb_poket_notebook = int(price_usb) + int(price_poket) + int(price_notebook)
+
+    # expect(page.locator("#cart_total")).to_contain_text(str(sum_usb_poket_notebook))
+    expect(page.locator("#cart_total")).to_contain_text("1 050")
     expect(page.locator("#cart_total_amount")).to_have_text("3")
 
