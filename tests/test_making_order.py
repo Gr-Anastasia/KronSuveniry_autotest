@@ -130,6 +130,9 @@ def test_14_making_an_order_courier(page: Page):
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Телефон:'))")).to_be_visible()
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Дата и время доставки:'))")).to_be_visible()
 
+    
+
+
     order.click_button_making_order()
     expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
 
@@ -173,7 +176,69 @@ def test_15_making_an_order_post(page: Page):
     expect(page.get_by_label("Дополнительная информация")).to_be_visible()
 
 
+def test_16_making_an_order_courier_not_all_data(page: Page):
+    pie = ProductPage(page, "https://pumpenergy.ru/catalog/pryanick-tula")
+    main = MainPage(page, "https://pumpenergy.ru/catalog/office")
+    card = CardPage(page, "https://pumpenergy.ru/catalog/cart")
+    order = OrderPage(page, "https://pumpenergy.ru/catalog?mode=order")
+    pie.open()
 
+    pie.click_button_product_by_name("Купить")
+    expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+
+    main.click_to_cart()
+    expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
+    expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
+    expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+
+    card.click_button_buy_no_register()
+    expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
+    expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+
+    order.click_radiobutton_product_by_delivery("Курьер - бесплатно")
+    expect(page.get_by_label("Курьер - бесплатно")).to_be_checked()
+
+    time.sleep(2)
+
+    expect(page.get_by_label("Адрес доставки:")).to_be_visible()
+    expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Телефон:'))")).to_be_visible()
+    expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Дата и время доставки:'))")).to_be_visible()
+
+    order.click_button_making_order()
+    expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
+
+
+def test_17_making_an_order_post_not_all_data(page: Page):
+    pie = ProductPage(page, "https://pumpenergy.ru/catalog/pryanick-tula")
+    main = MainPage(page, "https://pumpenergy.ru/catalog/office")
+    card = CardPage(page, "https://pumpenergy.ru/catalog/cart")
+    order = OrderPage(page, "https://pumpenergy.ru/catalog?mode=order")
+    pie.open()
+
+    pie.click_button_product_by_name("Купить")
+    expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
+
+    main.click_to_cart()
+    expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
+    expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
+    expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+
+    card.click_button_buy_no_register()
+    expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
+    expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+
+    order.click_radiobutton_product_by_delivery("Почта России - бесплатно")
+    expect(page.get_by_label("Почта России - бесплатно")).to_be_checked()
+
+    time.sleep(2)
+
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Адрес доставки:'))")).to_be_visible()
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Почтовый индекс:'))")).to_be_visible()
+    expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Телефон:'))")).to_be_visible()
+
+
+    order.click_button_making_order()
+    expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
 
 
 
