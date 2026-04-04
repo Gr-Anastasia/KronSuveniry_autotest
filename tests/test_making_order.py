@@ -251,8 +251,12 @@ def test_17_making_an_order_post_not_all_data(page: Page):
     expect(page.locator("#delivery-detail-7435909 label:has(span:has-text('Телефон:'))")).to_be_visible()
 
 
+    order.fill_input_form_add_data_by_post("Адрес доставки:", "г. Москва, ул. Максима Рыльского, д.1.")
+    order.fill_input_form_add_data_by_post("Телефон:", "880055353555")
+
     order.click_button_making_order()
-    expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
+
+    expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Почтовый индекс")
 
 
 
