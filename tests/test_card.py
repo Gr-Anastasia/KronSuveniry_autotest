@@ -66,19 +66,31 @@ def test_11_card_count(page: Page):
     expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
     expect(page.get_by_role("link", name="Бумажный пакет")).to_be_visible()
 
-    # x = page.locator('.shop2-cart-price').first.inner_text()
-    # price = int(x)
-    # y = page.locator('//input[contains(@name, "amounts")]').input_value()
-    # count = int(y)
-    # cost = price*count
-    # expect(page.locator(".total-price last-line")).to_have_text(f"{cost} Крон")
+    price_usb = page.locator("#cart-row-925428108 > .shop2-cart-price").all()[1].inner_text()
+    price_poket = page.locator("#cart-row-925402708 > .shop2-cart-price").all()[1].inner_text()
+    count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
+    count_poket = page.locator('input[name="amounts[925402708]"]').input_value()
+    sum_usb_before = int(price_usb) * int(count_usb_before)
+    sum_poket = int(price_poket) * int(count_poket)
+    sum_card_before = sum_usb_before + sum_poket
+
+    time.sleep(1)
+    expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(str(sum_card_before))
 
     card.fill_count_product_by_title_in_list_card("Карта-флешка", "22")
     page.keyboard.press("Enter")
-
     card.click_button_product_by_name("Пересчитать")
 
+    count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
+    sum_usb_after = int(price_usb) * int(count_usb_before)
+    sum_card_after = sum_usb_after + sum_poket
+    expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text("8 100")
+    # expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(str(sum_card_after))
+
     card.click_delete_product_by_title_in_list_card("Бумажный пакет")
+
+    expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
+    expect(page.get_by_role("link", name="Бумажный пакет")).to_be_hidden()
 
     time.sleep(1)
     card.click_button_product_by_name("Очистить корзину")
