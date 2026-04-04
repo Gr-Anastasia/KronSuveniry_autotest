@@ -186,7 +186,6 @@ def test_15_making_an_order_post(page: Page):
     expect(page.get_by_label("E-mail")).to_be_visible()
     expect(page.get_by_label("Дополнительная информация")).to_be_visible()
 
-
 def test_16_making_an_order_courier_not_all_data(page: Page):
     pie = ProductPage(page, "https://pumpenergy.ru/catalog/pryanick-tula")
     main = MainPage(page, "https://pumpenergy.ru/catalog/office")
@@ -215,7 +214,11 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Телефон:'))")).to_be_visible()
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Дата и время доставки:'))")).to_be_visible()
 
+    order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
+    order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
+
     order.click_button_making_order()
+
     expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
 
 
