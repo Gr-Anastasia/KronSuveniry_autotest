@@ -24,3 +24,15 @@ class OrderPage(BasePage):
 
     def fill_input_form_add_data(self, data, fill_value):
         return self.get_form_add_data().get_input_by_data(data).wrapper.fill(fill_value)
+
+    def get_form_add_data_in_delivery_form_by_courier(self):
+        return AddData(self.page, self.page.locator("#delivery-detail-7435709"))
+
+    def get_form_add_data_in_delivery_form_by_post(self):
+        return AddData(self.page, self.page.locator("#delivery-detail-7435909"))
+
+    def fill_input_form_add_data_by_courier(self, data, fill_value):
+        return self.get_form_add_data_in_delivery_form_by_courier().get_input_by_data(data).wrapper.fill(fill_value)
+
+    def fill_input_form_add_data_by_post(self, data, fill_value):
+        return self.get_form_add_data_in_delivery_form_by_post().get_input_by_data(data).wrapper.fill(fill_value)

@@ -11,8 +11,12 @@ class AddData(BaseComponent):
     def __init__(self, page: Page, wrapper: Locator):
         super().__init__(page, wrapper)
 
+    # def get_input_by_data(self, data):
+    #     return InputAll(self.page, self.wrapper.locator(f"label:has-text('{data}') input"))
+
     def get_input_by_data(self, data):
-        return InputAll(self.page, self.wrapper.locator(f"label:has-text('{data}') input"))
+        return InputAll(self.page, self.wrapper.locator(f"label:has-text('{data}') textarea, label:has-text('{data}') input"))
+
 
     def get_button_making_order(self):
         return ButtonAll(self.page, self.wrapper.get_by_role("link", name="Оформить заказ »"))

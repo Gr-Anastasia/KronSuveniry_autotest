@@ -130,7 +130,9 @@ def test_14_making_an_order_courier(page: Page):
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Телефон:'))")).to_be_visible()
     expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Дата и время доставки:'))")).to_be_visible()
 
-    
+    order.fill_input_form_add_data_by_courier("Адрес доставки:", "г. Москва, ул. Максима Рыльского, д.1.")
+    order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
+    order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
 
 
     order.click_button_making_order()
