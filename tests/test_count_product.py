@@ -1,5 +1,7 @@
-from pages.section_page import SectionPage
 from playwright.sync_api import expect, Page
+
+from pages.section_page import SectionPage
+
 
 
 def test_08_count_product_card_mini(page: Page):

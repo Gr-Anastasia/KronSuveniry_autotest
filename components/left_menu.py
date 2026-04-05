@@ -1,5 +1,7 @@
-from components.base_component import BaseComponent
 from playwright.sync_api import Page, Locator
+
+from components.base_component import BaseComponent
+
 
 class LeftMenu(BaseComponent):
     """
@@ -10,4 +12,3 @@ class LeftMenu(BaseComponent):
 
     def get_left_menu_by_title(self, title):
         return self.wrapper.locator(f"a:has-text('{title}')")
-

@@ -1,4 +1,7 @@
 class BasePage:
+    """
+    Базовый класс для страницы
+    """
     def __init__(self, page, url):
         self.page = page
         self.url = url

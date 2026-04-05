@@ -1,8 +1,9 @@
 import time
+from playwright.sync_api import expect, Page
+
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 from pages.card_page import CardPage
-from playwright.sync_api import expect, Page
 from pages.product_page import ProductPage
 from pages.section_page import SectionPage
 
@@ -283,7 +284,3 @@ def test_17_making_an_order_post_not_all_data(page: Page):
 
     order.click_button_making_order_in_making_order()
     expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Почтовый индекс")
-
-
-
-

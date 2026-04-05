@@ -1,4 +1,5 @@
 from playwright.sync_api import Page, Locator
+
 from components.base_component import BaseComponent
 from controls.input_all import InputAll
 from controls.button_all import ButtonAll
@@ -27,7 +28,3 @@ class ProductCardSection(BaseComponent):
 
     def get_input_count(self):
         return InputAll(self.page, self.wrapper.locator('input[name="amount"]'))
-
-
-
-

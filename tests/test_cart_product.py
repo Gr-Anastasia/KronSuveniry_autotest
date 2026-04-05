@@ -1,7 +1,9 @@
 import time
+from playwright.sync_api import expect, Page
+
 from pages.product_page import ProductPage
 from pages.section_page import SectionPage
-from playwright.sync_api import expect, Page
+
 
 def test_06_go_to_cart_product(page: Page):
     food = SectionPage(page, "https://pumpenergy.ru/catalog/eatable")

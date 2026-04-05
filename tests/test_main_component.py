@@ -1,7 +1,7 @@
-import time
+from playwright.sync_api import expect, Page
 
 from pages.main_page import MainPage
-from playwright.sync_api import expect, Page
+
 
 def test_01_open_url(page: Page):
     page.goto("https://pumpenergy.ru/")
@@ -67,6 +67,3 @@ def test_03_left_menu(page: Page):
     expect(page).to_have_url("https://pumpenergy.ru/catalog/folder/tvoj-podarok-na-ozon")
     expect(page.get_by_role("heading", name="Твой подарок на OZON")).to_be_visible()
     expect(page.locator('.product-name > a:has-text("Электронный сертификат OZON 500р.")')).to_be_visible()
-
-
-

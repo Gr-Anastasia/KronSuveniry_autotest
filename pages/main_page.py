@@ -2,9 +2,10 @@ from pages.base_page import BasePage
 from components.header_menu import HeaderMenu
 from components.left_menu import LeftMenu
 
+
 class MainPage(BasePage):
     """
-    Главная страница сайта
+    Элементы сайта, которые есть на всех страницах
     """
     def __init__(self, page, url):
         super().__init__(page, url)

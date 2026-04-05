@@ -1,8 +1,9 @@
 import time
+from playwright.sync_api import expect, Page
+
 from pages.main_page import MainPage
 from pages.product_page import ProductPage
 from pages.card_page import CardPage
-from playwright.sync_api import expect, Page
 from pages.section_page import SectionPage
 
 
@@ -73,7 +74,6 @@ def test_11_card_count(page: Page):
     sum_usb_before = int(price_usb) * int(count_usb_before)
     sum_poket = int(price_poket) * int(count_poket)
     sum_card_before = sum_usb_before + sum_poket
-
     time.sleep(1)
     expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(str(sum_card_before))
 
@@ -95,8 +95,4 @@ def test_11_card_count(page: Page):
     time.sleep(1)
     card.click_button_product_by_name("Очистить корзину")
     expect(page.locator("p", has_text="Корзина пуста")).to_be_visible()
-
-
-
-
 
