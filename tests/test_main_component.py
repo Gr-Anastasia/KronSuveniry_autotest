@@ -1,69 +1,91 @@
+import allure
 from playwright.sync_api import expect, Page
 
 from pages.main_page import MainPage
 
 
+@allure.title("Открытие главной страницы при переходе на сайт")
+@allure.feature("Проверка основных элементов")
+@allure.id("01")
 def test_01_open_url(page: Page):
-    page.goto("https://pumpenergy.ru/")
-    expect(page.locator(".company-name__inner")).to_have_text('НК «Крон»')
-    expect(page.locator(".company-desc")).to_have_text('Сувениры')
-    expect(page.locator("[data-folder-name=' Для офиса ']")).to_be_visible()
-    expect(page.locator("[data-folder-name=' Съедобные ']")).to_be_visible()
-    expect(page.locator("[data-folder-name=' USB-накопители ']")).to_be_visible()
-    expect(page.locator("[data-folder-name='Литература']")).to_be_visible()
+    with allure.step("Перейти по ссылке https://pumpenergy.ru/ "):
+        page.goto("https://pumpenergy.ru/")
+        expect(page.locator(".company-name__inner")).to_have_text('НК «Крон»')
+        expect(page.locator(".company-desc")).to_have_text('Сувениры')
+        expect(page.locator("[data-folder-name=' Для офиса ']")).to_be_visible()
+        expect(page.locator("[data-folder-name=' Съедобные ']")).to_be_visible()
+        expect(page.locator("[data-folder-name=' USB-накопители ']")).to_be_visible()
+        expect(page.locator("[data-folder-name='Литература']")).to_be_visible()
 
+@allure.title("Переход по страницам с помощью верхнего меню")
+@allure.feature("Проверка основных элементов")
+@allure.id("02")
 def test_02_header_menu(page: Page):
     main = MainPage(page, 'https://pumpenergy.ru/')
-    main.open()
 
-    main.click_to_menu_up_by_title("Каталог сувениров")
-    expect(page).to_have_url("https://pumpenergy.ru/catalog")
-    expect(page.get_by_role("heading", name="Каталог сувениров")).to_be_visible()
+    with allure.step("Предусловие: Открытие страницы https://pumpenergy.ru/"):
+        main.open()
 
-    main.click_to_menu_up_by_title("Обратная связь")
-    expect(page).to_have_url("https://pumpenergy.ru/obratnay_svayz")
-    expect(page.get_by_role("heading", name="Обратная связь")).to_be_visible()
+    with allure.step("Нажать на кнопку раздела [Каталог сувениров] в верхнем меню"):
+        main.click_to_menu_up_by_title("Каталог сувениров")
+        expect(page).to_have_url("https://pumpenergy.ru/catalog")
+        expect(page.get_by_role("heading", name="Каталог сувениров")).to_be_visible()
 
-    main.click_to_menu_up_by_title("Личный кабинет")
-    expect(page).to_have_url("https://pumpenergy.ru/registraciya")
-    expect(page.get_by_role("heading", name="Доступ запрещен")).to_be_visible()
+    with allure.step("Нажать на кнопку раздела [Обратная связь] в верхнем меню"):
+        main.click_to_menu_up_by_title("Обратная связь")
+        expect(page).to_have_url("https://pumpenergy.ru/obratnay_svayz")
+        expect(page.get_by_role("heading", name="Обратная связь")).to_be_visible()
 
-    main.click_to_menu_by_home()
-    expect(page).to_have_url("https://pumpenergy.ru/")
+    with allure.step("Нажать на кнопку раздела [Личный кабинет] в верхнем меню"):
+        main.click_to_menu_up_by_title("Личный кабинет")
+        expect(page).to_have_url("https://pumpenergy.ru/registraciya")
+        expect(page.get_by_role("heading", name="Доступ запрещен")).to_be_visible()
 
+    with allure.step("Нажать на кнопку [домика] в верхнем меню"):
+        main.click_to_menu_by_home()
+        expect(page).to_have_url("https://pumpenergy.ru/")
+
+@allure.title("Переход по разделам в левом меню сайта ")
+@allure.feature("Проверка основных элементов")
+@allure.id("03")
 def test_03_left_menu(page: Page):
     main = MainPage(page, 'https://pumpenergy.ru/')
-    main.open()
 
-    main.click_to_left_menu_by_title('Для офиса')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/office")
-    expect(page.get_by_role("heading", name="Офисные сувениры")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Ежедневник")')).to_be_visible()
+    with allure.step("Предусловие: Открытие страницы https://pumpenergy.ru/"):
+        main.open()
 
-    main.click_to_left_menu_by_title('Съедобное')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/eatable")
-    expect(page.get_by_role("heading", name="Съедобное")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Тульский пряник")')).to_be_visible()
+    with allure.step("Нажать на раздел [Для офиса] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('Для офиса')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/office")
+        expect(page.get_by_role("heading", name="Офисные сувениры")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Ежедневник")')).to_be_visible()
 
-    main.click_to_left_menu_by_title('USB-накопители')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/usb")
-    expect(page.get_by_role("heading", name="USB-накопители")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Флешка в виде насоса")')).to_be_visible()
+    with allure.step("Нажать на раздел [Съедобное] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('Съедобное')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/eatable")
+        expect(page.get_by_role("heading", name="Съедобное")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Тульский пряник")')).to_be_visible()
 
+    with allure.step("Нажать на раздел [USB-накопители] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('USB-накопители')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/usb")
+        expect(page.get_by_role("heading", name="USB-накопители")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Флешка в виде насоса")')).to_be_visible()
 
-    main.click_to_left_menu_by_title('Литература')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/literature")
-    expect(page.get_by_role("heading", name="Литература")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Плакат МНХИ")')).to_be_visible()
+    with allure.step("Нажать на раздел [Литература] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('Литература')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/literature")
+        expect(page.get_by_role("heading", name="Литература")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Плакат МНХИ")')).to_be_visible()
 
+    with allure.step("Нажать на раздел [Выставки] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('Выставки')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/folder/vystavki")
+        expect(page.get_by_role("heading", name="Выставки")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Аренда рабочего колесо насоса МНХИ")')).to_be_visible()
 
-    main.click_to_left_menu_by_title('Выставки')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/folder/vystavki")
-    expect(page.get_by_role("heading", name="Выставки")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Аренда рабочего колесо насоса МНХИ")')).to_be_visible()
-
-
-    main.click_to_left_menu_by_title('Твой подарок на OZON')
-    expect(page).to_have_url("https://pumpenergy.ru/catalog/folder/tvoj-podarok-na-ozon")
-    expect(page.get_by_role("heading", name="Твой подарок на OZON")).to_be_visible()
-    expect(page.locator('.product-name > a:has-text("Электронный сертификат OZON 500р.")')).to_be_visible()
+    with allure.step("Нажать на раздел [Твой подарок на OZON] в левом сайдбаре"):
+        main.click_to_left_menu_by_title('Твой подарок на OZON')
+        expect(page).to_have_url("https://pumpenergy.ru/catalog/folder/tvoj-podarok-na-ozon")
+        expect(page.get_by_role("heading", name="Твой подарок на OZON")).to_be_visible()
+        expect(page.locator('.product-name > a:has-text("Электронный сертификат OZON 500р.")')).to_be_visible()
