@@ -30,13 +30,14 @@ def test_09_card(page: Page):
         main.click_to_cart()
         count = page.locator('input[name="amounts[925418108]"]').input_value()
         sum_pie = int(price) * int(count)
+        cart_total = page.locator('.shop2-cart-price').all()[1].inner_text()
+        cart_total_clean = cart_total.replace("\u00A0", "")
+        assert cart_total_clean == str(sum_pie)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
         expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
         expect(page.locator('input[name="amounts[925418108]"]')).to_have_value(count)
         expect(page.locator('.shop2-cart-price').all()[0]).to_have_text(price)
-        expect(page.locator('.shop2-cart-price').all()[1]).to_have_text("3 500")
-        # expect(page.locator('.shop2-cart-price').all()[1]).to_have_text(str(sum_pie))
 
 @allure.title("Переход на карточку товара из корзины")
 @allure.feature("Работа корзины")
@@ -107,11 +108,13 @@ def test_11_card_count(page: Page):
 
     with allure.step("Нажать кнопку [Пересчитать]"):
         card.click_button_product_by_name("Пересчитать")
+        time.sleep(1)
         count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
         sum_usb_after = int(price_usb) * int(count_usb_before)
         sum_card_after = sum_usb_after + sum_poket
-        expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text("8 100")
-        # expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(str(sum_card_after))
+        cart_total = page.locator('//*[@class="total-price last-line"]').inner_text()
+        cart_total_clean = cart_total.replace("\u00A0", "").replace("Крон", "")
+        assert cart_total_clean == str(sum_card_after)
 
     with allure.step("Нажать кнопку [ЛогоПомойки] у товара «Бумажный пакет» "):
         card.click_delete_product_by_title_in_list_card("Бумажный пакет")

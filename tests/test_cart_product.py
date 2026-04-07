@@ -60,7 +60,8 @@ def test_07_count_cart_logo(page: Page):
         expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
         price_notebook = page.locator('.product-item.shop2-product-item:has(a:has-text("Блокнот"))').locator(".product-price > strong").inner_text()
         sum_usb_poket_notebook = int(price_usb) + int(price_poket) + int(price_notebook)
-
-        # expect(page.locator("#cart_total")).to_contain_text(str(sum_usb_poket_notebook))
-        expect(page.locator("#cart_total")).to_contain_text("1 050")
+        time.sleep(1)
+        cart_total = page.locator("#cart_total").inner_text()
+        cart_total_clean = cart_total.replace("\u00A0", "")
+        assert cart_total_clean == str(sum_usb_poket_notebook)
         expect(page.locator("#cart_total_amount")).to_have_text("3")
