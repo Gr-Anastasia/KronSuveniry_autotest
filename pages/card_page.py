@@ -1,4 +1,5 @@
 from components.card_form_order import FormOrderWithoutRegistration
+from playwright.sync_api import Page, Locator
 
 from pages.base_page import BasePage
 from components.card_form import FormCard
@@ -35,3 +36,15 @@ class CardPage(BasePage):
 
     def click_button_buy_no_register(self):
         return self.get_form_order_no_register().get_button_by_name("Купить без регистрации").wrapper.click()
+
+    def get_cart_total(self, page:Page):
+        cart_total = page.locator('.shop2-cart-price').all()[1].inner_text()
+        return cart_total
+
+    def get_cart_total_clean(self, page:Page):
+        # cart_total_clean = cart_total.replace("\u00A0", "")
+        cart_total = self.get_cart_total(page)
+        cart_total_clean = cart_total.replace("\u00A0", "")
+        return cart_total_clean
+
+
