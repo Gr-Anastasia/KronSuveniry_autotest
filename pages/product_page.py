@@ -1,3 +1,5 @@
+from playwright.sync_api import Page
+
 from pages.base_page import BasePage
 from components.product_card import ProductCard
 
@@ -17,3 +19,5 @@ class ProductPage(BasePage):
 
     def fill_input_count_by_title(self, fill_value):
         return self.get_product().get_input_count().wrapper.fill(f"{fill_value}")
+
+

@@ -29,10 +29,11 @@ def test_09_card(page: Page):
 
     with allure.step("Нажать кнопку корзины в верхнем левом углу"):
         main_page.click_to_cart()
+
         count = page.locator('input[name="amounts[925418108]"]').input_value()
         sum_pie = int(price) * int(count)
 
-        cart_total_clean = card_page.get_cart_total_clean
+        cart_total_clean= card_page.get_cart_total_clean
 
         # cart_total = page.locator('.shop2-cart-price').all()[1].inner_text()
         # cart_total_clean = cart_total.replace("\u00A0", "")
@@ -106,10 +107,16 @@ def test_11_card_count(page: Page):
         expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
         expect(page.get_by_role("link", name="Бумажный пакет")).to_be_visible()
 
-        price_usb = page.locator("#cart-row-925428108 > .shop2-cart-price").all()[1].inner_text()
-        price_poket = page.locator("#cart-row-925402708 > .shop2-cart-price").all()[1].inner_text()
-        count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
-        count_poket = page.locator('input[name="amounts[925402708]"]').input_value()
+        price_usb = card_page.price_inner("Карта-флешка")
+        price_poket = card_page.price_inner("Бумажный пакет")
+        count_usb_before = card_page.count_input_value("Карта-флешка")
+        count_poket = card_page.count_input_value("Бумажный пакет")
+
+
+        # price_usb = page.locator("#cart-row-925428108 > .shop2-cart-price").all()[1].inner_text()
+        # price_poket = page.locator("#cart-row-925402708 > .shop2-cart-price").all()[1].inner_text()
+        # count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
+        # count_poket = page.locator('input[name="amounts[925402708]"]').input_value()
 
         sum_usb_before = int(price_usb) * int(count_usb_before)
         sum_poket = int(price_poket) * int(count_poket)
@@ -125,13 +132,18 @@ def test_11_card_count(page: Page):
         card_page.click_button_product_by_name("Пересчитать")
         time.sleep(1)
 
-        count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
+        count_usb_before = card_page.count_input_value("Карта-флешка")
+
+        # count_usb_before = page.locator('input[name="amounts[925428108]"]').input_value()
         sum_usb_after = int(price_usb) * int(count_usb_before)
         sum_card_after = sum_usb_after + sum_poket
-        cart_total = page.locator('//*[@class="total-price last-line"]').inner_text()
-        cart_total_clean = cart_total.replace("\u00A0", "").replace("Крон", "")
 
-        assert cart_total_clean == str(sum_card_after)
+        cart_total_clean = card_page.inner_clean_cart_total_all_card
+
+        # cart_total = page.locator('//*[@class="total-price last-line"]').inner_text()
+        # cart_total_clean = cart_total.replace("\u00A0", "").replace("Крон", "")
+
+        assert cart_total_clean(page) == str(sum_card_after)
 
     with allure.step("Нажать кнопку [ЛогоПомойки] у товара «Бумажный пакет» "):
         card_page.click_delete_product_by_title_in_list_card("Бумажный пакет")

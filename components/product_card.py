@@ -17,3 +17,4 @@ class ProductCard(BaseComponent):
 
     def get_input_count(self):
         return InputAll(self.page, self.wrapper.locator('input[name="amount"]'))
+

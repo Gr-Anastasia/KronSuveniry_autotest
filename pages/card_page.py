@@ -31,6 +31,12 @@ class CardPage(BasePage):
     def click_delete_product_by_title_in_list_card(self, title):
         return self.get_lict_card_by_title(title).get_delete_icon().wrapper.click()
 
+    def price_inner(self, title):
+        return self.get_lict_card_by_title(title).get_price_by_title().inner_text()
+
+    def count_input_value(self, title):
+        return self.get_lict_card_by_title(title).get_input_count().wrapper.input_value()
+
     def get_form_order_no_register(self):
         return FormOrderWithoutRegistration(self.page, self.page.locator(".cart-registration-right"))
 
@@ -46,5 +52,16 @@ class CardPage(BasePage):
         cart_total = self.get_cart_total(page)
         cart_total_clean = cart_total.replace("\u00A0", "")
         return cart_total_clean
+
+    def inner_cart_total_all_card(self, page:Page):
+        cart_total = page.locator('//*[@class="total-price last-line"]').inner_text()
+        return cart_total
+
+    def inner_clean_cart_total_all_card(self, page:Page):
+        cart_total = self.inner_cart_total_all_card(page)
+        cart_total_clean = cart_total.replace("\u00A0", "").replace("Крон", "")
+        return cart_total_clean
+
+
 
 

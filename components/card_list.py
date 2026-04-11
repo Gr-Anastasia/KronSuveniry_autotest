@@ -21,3 +21,8 @@ class ListCard(BaseComponent):
 
     def get_delete_icon(self):
         return DeleteLinkCard(self.page, self.wrapper.get_by_title("Удалить"))
+
+    def get_price_by_title(self):
+        price = self.wrapper.locator('.shop2-cart-price').all()[0]
+        return price
+
