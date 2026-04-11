@@ -272,13 +272,13 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
         expect(page.locator(".delivery-type.delivery-type-current label:has(span:has-text('Дата и время доставки:'))")).to_be_visible()
 
     with allure.step("Заполнить поля тестовыми данными, КРОМЕ АДРЕСА ДОСТАВКИ"):
-        order.fill_input_form_add_data_by_courier("Телефон:", "880055353555")
-        order.fill_input_form_add_data_by_courier("Дата и время доставки:", "11.03.2026, 15:00")
-        expect(page.locator("#delivery-1").all()[0]).to_have_value("880055353555")
-        expect(page.locator("#delivery-2").all()[0]).to_have_value("11.03.2026, 15:00")
+        order.fill_input_form_add_data_by_courier("Телефон:", "880055888555")
+        order.fill_input_form_add_data_by_courier("Дата и время доставки:", "12.03.2027, 15:00")
+        expect(page.locator("#delivery-1").all()[0]).to_have_value("880055888555")
+        expect(page.locator("#delivery-2").all()[0]).to_have_value("12.03.2027, 15:00")
 
     with allure.step("Нажать [Оформить заказ]"):
-        order.click_button_making_order_in_making_order()
+        order.click_button_making_order_in_delivery()
         expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Адрес доставки")
 
 @allure.title("Проверка оформления заказа доставкой Почтой-России, игнорируя обязательные поля ")
@@ -327,5 +327,5 @@ def test_17_making_an_order_post_not_all_data(page: Page):
         expect(page.locator("#delivery-2").all()[1]).to_have_value("880055353555")
 
     with allure.step("Нажать [Оформить заказ]"):
-        order.click_button_making_order_in_making_order()
+        order.click_button_making_order_in_delivery()
         expect(page.locator(".error")).to_have_text("Неверно заполнено поле: Почтовый индекс")

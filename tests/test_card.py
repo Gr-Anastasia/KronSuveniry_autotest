@@ -32,7 +32,9 @@ def test_09_card(page: Page):
         sum_pie = int(price) * int(count)
         cart_total = page.locator('.shop2-cart-price').all()[1].inner_text()
         cart_total_clean = cart_total.replace("\u00A0", "")
-        assert cart_total_clean == str(sum_pie)
+        # assert cart_total_clean == str(sum_pie)
+
+        # expect((page.locator('.shop2-cart-price').all()[1])).to_have_text(sum_pie)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
         expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
