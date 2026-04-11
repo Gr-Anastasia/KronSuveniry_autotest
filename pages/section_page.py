@@ -1,3 +1,5 @@
+from playwright.sync_api import Page
+
 from pages.base_page import BasePage
 from components.filter_price import FilterPrice
 from components.product_card_mini import ProductCardSection
@@ -37,3 +39,15 @@ class SectionPage(BasePage):
 
     def fill_input_count_by_title(self, title, fill_value):
         return self.get_product_in_card_by_title(title).get_input_count().wrapper.fill(f"{fill_value}")
+
+    def inner_price(self, title):
+        return self.get_product_in_card_by_title(title).get_price().inner_text()
+
+    def get_cart_total_in_logo(self, page: Page):
+        cart_total = page.locator("#cart_total").inner_text()
+        return cart_total
+
+    def get_cart_total_clean_in_logo(self, page: Page):
+        cart_total = self.get_cart_total_in_logo(page)
+        cart_total_clean = cart_total.replace("\u00A0", "")
+        return cart_total_clean

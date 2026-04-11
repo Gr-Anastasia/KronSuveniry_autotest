@@ -42,7 +42,11 @@ def test_07_count_cart_logo(page: Page):
         office_page.click_button_buy_in_product_card_by_title("Карта-флешка")
         expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
         time.sleep(1)
-        price_usb = page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))').locator(".product-price > strong").inner_text()
+
+        price_usb = office_page.inner_price("Карта-флешка")
+
+
+        # price_usb = page.locator('.product-item.shop2-product-item:has(a:has-text("Карта-флешка"))').locator(".product-price > strong").inner_text()
         expect(page.locator("#cart_total")).to_have_text(price_usb)
         expect(page.locator("#cart_total_amount")).to_have_text("1")
 
@@ -50,7 +54,9 @@ def test_07_count_cart_logo(page: Page):
         office_page.click_button_buy_in_product_card_by_title("Бумажный пакет")
         expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
         time.sleep(1)
-        price_poket = page.locator('.product-item.shop2-product-item:has(a:has-text("Бумажный пакет"))').locator(".product-price > strong").inner_text()
+        price_poket = office_page.inner_price("Бумажный пакет")
+
+        # price_poket = page.locator('.product-item.shop2-product-item:has(a:has-text("Бумажный пакет"))').locator(".product-price > strong").inner_text()
         sum_usb_poket = int(price_usb) + int(price_poket)
         expect(page.locator("#cart_total")).to_have_text(str(sum_usb_poket))
         expect(page.locator("#cart_total_amount")).to_have_text("2")
@@ -58,12 +64,17 @@ def test_07_count_cart_logo(page: Page):
     with allure.step("Нажать кнопку [Купить] у товара «Блокнот»"):
         office_page.click_button_buy_in_product_card_by_title("Блокнот")
         expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
-        price_notebook = page.locator('.product-item.shop2-product-item:has(a:has-text("Блокнот"))').locator(".product-price > strong").inner_text()
+
+        price_notebook = office_page.inner_price("Блокнот")
+
+        # price_notebook = page.locator('.product-item.shop2-product-item:has(a:has-text("Блокнот"))').locator(".product-price > strong").inner_text()
         sum_usb_poket_notebook = int(price_usb) + int(price_poket) + int(price_notebook)
         time.sleep(1)
 
-        cart_total = page.locator("#cart_total").inner_text()
-        cart_total_clean = cart_total.replace("\u00A0", "")
+        cart_total_clean = office_page.get_cart_total_clean_in_logo
 
-        assert cart_total_clean == str(sum_usb_poket_notebook)
+        # cart_total = page.locator("#cart_total").inner_text()
+        # cart_total_clean = cart_total.replace("\u00A0", "")
+
+        assert cart_total_clean(page) == str(sum_usb_poket_notebook)
         expect(page.locator("#cart_total_amount")).to_have_text("3")

@@ -29,11 +29,10 @@ def test_09_card(page: Page):
 
     with allure.step("Нажать кнопку корзины в верхнем левом углу"):
         main_page.click_to_cart()
-
         count = page.locator('input[name="amounts[925418108]"]').input_value()
         sum_pie = int(price) * int(count)
 
-        cart_total_clean= card_page.get_cart_total_clean
+        cart_total_clean = card_page.get_cart_total_clean
 
         # cart_total = page.locator('.shop2-cart-price').all()[1].inner_text()
         # cart_total_clean = cart_total.replace("\u00A0", "")
@@ -41,8 +40,6 @@ def test_09_card(page: Page):
         # cart_total_2 = page.locator('.shop2-cart-price').all()[1]
 
         assert cart_total_clean(page) == str(sum_pie)
-
-
 
         # expect(cart_total_2).to_contain_text(str(sum_pie))
 

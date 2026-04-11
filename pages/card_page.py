@@ -48,7 +48,6 @@ class CardPage(BasePage):
         return cart_total
 
     def get_cart_total_clean(self, page:Page):
-        # cart_total_clean = cart_total.replace("\u00A0", "")
         cart_total = self.get_cart_total(page)
         cart_total_clean = cart_total.replace("\u00A0", "")
         return cart_total_clean
@@ -61,6 +60,9 @@ class CardPage(BasePage):
         cart_total = self.inner_cart_total_all_card(page)
         cart_total_clean = cart_total.replace("\u00A0", "").replace("Крон", "")
         return cart_total_clean
+
+
+
 
 
 

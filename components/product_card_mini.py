@@ -28,3 +28,7 @@ class ProductCardSection(BaseComponent):
 
     def get_input_count(self):
         return InputAll(self.page, self.wrapper.locator('input[name="amount"]'))
+
+    def get_price(self):
+        price = self.wrapper.locator('.product-price > strong')
+        return price
