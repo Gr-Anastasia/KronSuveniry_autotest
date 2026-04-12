@@ -27,15 +27,9 @@ def test_12_making_an_order(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Брошюра А4 МНХИ")
         count = card_page.count_input_value("Брошюра А4 МНХИ")
-
-        # price = page.locator("#cart-row-725769909 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[725769909]"]').input_value()
-
         sum_card = int(price) * int(count)
-
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
         expect(page.get_by_role("link", name="Брошюра А4 МНХИ")).to_be_visible()
@@ -87,14 +81,9 @@ def test_13_making_an_order_not_all_data(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Брошюра А4 МНХИ")
         count = card_page.count_input_value("Брошюра А4 МНХИ")
-
-        # price = page.locator("#cart-row-725769909 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[725769909]"]').input_value()
         sum_card = int(price) * int(count)
-
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
         expect(page.get_by_role("link", name="Брошюра А4 МНХИ")).to_be_visible()
@@ -146,13 +135,8 @@ def test_14_making_an_order_courier(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Тульский пряник")
         count = card_page.count_input_value("Тульский пряник")
-
-        # price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[925418108]"]').input_value()
-
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
@@ -207,13 +191,8 @@ def test_15_making_an_order_post(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Тульский пряник")
         count = card_page.count_input_value("Тульский пряник")
-
-        # price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[925418108]"]').input_value()
-
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
@@ -268,13 +247,8 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Тульский пряник")
         count = card_page.count_input_value("Тульский пряник")
-
-        # price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[925418108]"]').input_value()
-
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
@@ -322,13 +296,8 @@ def test_17_making_an_order_post_not_all_data(page: Page):
 
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
-
         price = card_page.price_inner("Тульский пряник")
         count = card_page.count_input_value("Тульский пряник")
-
-        # price = page.locator("#cart-row-925418108 > .shop2-cart-price").all()[1].inner_text()
-        # count = page.locator('input[name="amounts[925418108]"]').input_value()
-
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
         expect(page.get_by_role("heading", name="Корзина")).to_be_visible()

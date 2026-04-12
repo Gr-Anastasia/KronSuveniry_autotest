@@ -7,6 +7,7 @@ from pages.main_page import MainPage
 from pages.product_page import ProductPage
 from pages.section_page import SectionPage
 
+
 @allure.title("Работа корзины")
 @allure.feature("Работа корзины")
 @allure.id("09")
@@ -34,8 +35,8 @@ def test_09_card(page: Page):
         cart_total_clean = card_page.get_cart_total_clean
         assert cart_total_clean(page) == str(sum_pie)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator(".content-inner > h1")).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a")).to_have_text("Тульский пряник")
         expect(page.locator('input[name="amounts[925418108]"]')).to_have_value(count)
         expect(page.locator('.shop2-cart-price').all()[0]).to_have_text(price)
 
@@ -57,13 +58,13 @@ def test_10_from_card_to_product(page: Page):
     with allure.step("Нажать на кнопку корзины в верхнем правом меню"):
         main_page.click_to_cart()
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator(".content-inner > h1")).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a")).to_have_text("Тульский пряник")
 
     with allure.step("Нажать на название [Тульский пряник]"):
         card_page.click_title_product_in_list_card("Тульский пряник")
         expect(page).to_have_url("https://pumpenergy.ru/catalog/pryanick-tula")
-        expect(page.get_by_role("heading", name="Тульский пряник")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Тульский пряник")
 
 @allure.title("Изменение количества в корзине")
 @allure.feature("Работа корзины")
@@ -80,7 +81,6 @@ def test_11_card_count(page: Page):
         office_page.click_button_buy_in_product_card_by_title("Карта-флешка")
         expect(page.locator(".added-to-cart:has-text('Добавлено')")).to_be_visible()
 
-
     with allure.step("Нажать кнопку [Купить] у товара «Бумажный пакет»"):
         time.sleep(1)
         office_page.click_button_buy_in_product_card_by_title("Бумажный пакет")
@@ -90,9 +90,9 @@ def test_11_card_count(page: Page):
         main_page.click_to_cart()
         time.sleep(2)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
-        expect(page.get_by_role("link", name="Бумажный пакет")).to_be_visible()
+        expect(page.locator(".content-inner > h1")).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Бумажный пакет')")).to_have_text("Бумажный пакет")
+        expect(page.locator(".shop2-cart-body > a:has-text('Карта-флешка')")).to_have_text("Карта-флешка")
         price_usb = card_page.price_inner("Карта-флешка")
         price_poket = card_page.price_inner("Бумажный пакет")
         count_usb_before = card_page.count_input_value("Карта-флешка")
@@ -118,10 +118,10 @@ def test_11_card_count(page: Page):
 
     with allure.step("Нажать кнопку [ЛогоПомойки] у товара «Бумажный пакет» "):
         card_page.click_delete_product_by_title_in_list_card("Бумажный пакет")
-        expect(page.get_by_role("link", name="Карта-флешка")).to_be_visible()
-        expect(page.get_by_role("link", name="Бумажный пакет")).to_be_hidden()
-        time.sleep(1)
+        expect(page.locator(".shop2-cart-body > a:has-text('Карта-флешка')")).to_have_text("Карта-флешка")
+        expect(page.locator(".shop2-cart-body > a:has-text('Бумажный пакет')")).to_be_hidden()
 
     with allure.step("Нажать кнопку [Очистить корзину]"):
+        time.sleep(1)
         card_page.click_button_product_by_name("Очистить корзину")
         expect(page.locator("p", has_text="Корзина пуста")).to_be_visible()
