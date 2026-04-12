@@ -20,4 +20,8 @@ class ProductPage(BasePage):
     def fill_input_count_by_title(self, fill_value):
         return self.get_product().get_input_count().wrapper.fill(f"{fill_value}")
 
+    def inner_price(self):
+        return self.get_product().get_price().inner_text()
 
+    def input_value(self):
+        return self.get_product().get_input_count().wrapper.input_value()
