@@ -31,14 +31,14 @@ def test_12_making_an_order(page: Page):
         count = card_page.count_input_value("Брошюра А4 МНХИ")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Брошюра А4 МНХИ")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Брошюра А4 МНХИ')")).to_have_text("Брошюра А4 МНХИ")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Самовывоз – бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Самовывоз - бесплатно")
@@ -46,7 +46,7 @@ def test_12_making_an_order(page: Page):
 
     with allure.step("Нажать [Оформить заказ]"):
         order_page.click_button_making_order_in_delivery()
-        expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Оформление заказа")
         expect(page.get_by_label("ФИО")).to_be_visible()
         expect(page.get_by_label("Компания")).to_be_visible()
         expect(page.get_by_label("Телефон")).to_be_visible()
@@ -85,14 +85,14 @@ def test_13_making_an_order_not_all_data(page: Page):
         count = card_page.count_input_value("Брошюра А4 МНХИ")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Брошюра А4 МНХИ")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Брошюра А4 МНХИ')")).to_have_text("Брошюра А4 МНХИ")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Самовывоз – бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Самовывоз - бесплатно")
@@ -100,7 +100,7 @@ def test_13_making_an_order_not_all_data(page: Page):
 
     with allure.step("Нажать [Оформить заказ]"):
         order_page.click_button_making_order_in_delivery()
-        expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Оформление заказа")
         expect(page.get_by_label("ФИО")).to_be_visible()
         expect(page.get_by_label("Компания")).to_be_visible()
         expect(page.get_by_label("Телефон")).to_be_visible()
@@ -139,14 +139,14 @@ def test_14_making_an_order_courier(page: Page):
         count = card_page.count_input_value("Тульский пряник")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Тульский пряник')")).to_have_text("Тульский пряник")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Курьер - бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Курьер - бесплатно")
@@ -166,7 +166,7 @@ def test_14_making_an_order_courier(page: Page):
 
     with allure.step("Нажать [Оформить заказ]"):
         order_page.click_button_making_order_in_delivery()
-        expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Оформление заказа")
         expect(page.get_by_label("ФИО")).to_be_visible()
         expect(page.get_by_label("Компания")).to_be_visible()
         expect(page.get_by_label("Телефон")).to_be_visible()
@@ -195,14 +195,14 @@ def test_15_making_an_order_post(page: Page):
         count = card_page.count_input_value("Тульский пряник")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Тульский пряник')")).to_have_text("Тульский пряник")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Почта России - бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Почта России - бесплатно")
@@ -222,7 +222,7 @@ def test_15_making_an_order_post(page: Page):
 
     with allure.step("Нажать [Оформить заказ]"):
         order_page.click_button_making_order_in_delivery()
-        expect(page.get_by_role("heading", name="Оформление заказа")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Оформление заказа")
         expect(page.get_by_label("ФИО")).to_be_visible()
         expect(page.get_by_label("Компания")).to_be_visible()
         expect(page.get_by_label("Телефон")).to_be_visible()
@@ -251,14 +251,14 @@ def test_16_making_an_order_courier_not_all_data(page: Page):
         count = card_page.count_input_value("Тульский пряник")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Тульский пряник')")).to_have_text("Тульский пряник")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Курьер - бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Курьер - бесплатно")
@@ -300,14 +300,14 @@ def test_17_making_an_order_post_not_all_data(page: Page):
         count = card_page.count_input_value("Тульский пряник")
         sum_card = int(price) * int(count)
         expect(page).to_have_url("https://pumpenergy.ru/catalog/cart")
-        expect(page.get_by_role("heading", name="Корзина")).to_be_visible()
-        expect(page.get_by_role("link", name="Тульский пряник")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Корзина")
+        expect(page.locator(".shop2-cart-body > a:has-text('Тульский пряник')")).to_have_text("Тульский пряник")
         expect(page.locator('//*[@class="total-price last-line"]')).to_contain_text(f"{str(sum_card)} Крон")
 
     with allure.step("Нажать кнопку [Купить без регистрации]"):
         card_page.click_button_buy_no_register()
         expect(page).to_have_url("https://pumpenergy.ru/catalog?mode=order")
-        expect(page.get_by_role("heading", name="Доставка")).to_be_visible()
+        expect(page.locator('.content-inner > h1')).to_have_text("Доставка")
 
     with allure.step("Нажать [Почта России - бесплатно]"):
         order_page.click_radiobutton_product_by_delivery("Почта России - бесплатно")
